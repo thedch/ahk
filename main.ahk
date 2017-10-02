@@ -26,7 +26,7 @@ Return
 
 ; Allows the dash button to function normally, but sends an em-dash instead when
 ; the key is double tapped quicker than 250ms
-~-:: ;  '~' serves to send the original keys functionality through (in this case, typing a dash)
+~-:: ;  '~' serves to send the original keys functionality through
 if (A_PriorHotkey <> "~-" or A_TimeSincePriorHotkey > 250) ;  Lowering this below
 ; 250 will make the hotkey difficult to activate, you'll have to double tap quite fast
 {
@@ -37,7 +37,7 @@ Send {Backspace}
 Send {ASC 0151} ;  Send the alt code for an em-dash
 Return
 
-^1:: ; ILMF scripts
+^1::
 	CoordMode, Mouse,
 	Send, {PgUp 10}
 	Sleep, 400
@@ -53,6 +53,7 @@ Return
 	MouseClick, left, 1514, 302
 	Sleep, 50
 	MouseClick, left, 1847, 423
+Return
 
 ^2::
 	Send, ^{Right}
@@ -64,16 +65,10 @@ Return
 Return
 
 ^Del::run, %comspec% /c start "" "D:\Main\"
-
 ^End::run, %comspec% /c start "" "\Users\Daniel-SSD\Google Drive\School"
-
 ^PgDn::run, %comspec% /c start "" "\Users\Daniel-SSD\Google Drive\Business"
 
-^Ins::
-	Send, officialdanielhunter@gmail.com
-Return
-
-;  how to write scripts: http:;www.autohotkey.com/docs/
+^Ins::Send officialdanielhunter@gmail.com
 
 #IfWinActive ahk_class CabinetWClass ; File Explorer
     ^Backspace::
