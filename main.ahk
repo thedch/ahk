@@ -2,7 +2,6 @@
 #Warn ; Enable warnings to assist with detecting common errors.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
-; SetTitleMatchMode, RegEx
 
 #SingleInstance force
 #InstallKeybdHook
@@ -35,14 +34,12 @@ Return
 ; Allows the dash button to function normally, but sends an em-dash instead when
 ; the key is double tapped quicker than 250ms
 ~-:: ;  '~' serves to send the original keys functionality through
-if (A_PriorHotkey <> "~-" or A_TimeSincePriorHotkey > 250) ;  Lowering this below
-; 250 will make the hotkey difficult to activate, you'll have to double tap quite fast
-{
-	Return
-}
-Send {Backspace} ;  Send two backspaces to delete the two dashes you just typed
-Send {Backspace}
-Send {ASC 0151} ;  Send the alt code for an em-dash
+	if (A_PriorHotkey <> "~-" or A_TimeSincePriorHotkey > 250) { ; 250 ms
+		Return
+	}
+	Send {Backspace} ;  Send two backspaces to delete the two dashes you just typed
+	Send {Backspace}
+	Send {ASC 0151} ;  Send the alt code for an em-dash
 Return
 
 #IfWinActive
@@ -74,12 +71,14 @@ Return
 	Send, ^v
 Return
 
+; Open various folders 
 ^Del::run, %comspec% /c start "" "D:\Main\"
 ^End::run, %comspec% /c start "" "\Users\Daniel-SSD\Google Drive\School"
 ^PgDn::run, %comspec% /c start "" "\Users\Daniel-SSD\Google Drive\Business"
 
 ^Ins::Send officialdanielhunter@gmail.com
 
+; source and context: http://superuser.com/a/636973/124606
 #IfWinActive ahk_class CabinetWClass ; File Explorer
     ^Backspace::
 #IfWinActive ahk_class Notepad
@@ -87,4 +86,3 @@ Return
     Send ^+{Left}{Backspace}
 #IfWinActive
 
-; source and context: http://superuser.com/a/636973/124606
