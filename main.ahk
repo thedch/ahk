@@ -2,9 +2,15 @@
 #Warn ; Enable warnings to assist with detecting common errors.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
+SetTitleMatchMode, RegEx
 
 #SingleInstance force
 #InstallKeybdHook
+
+; create a window group called editors, add several programs to it
+GroupAdd, Editors, ahk_exe sublime_text.exe
+GroupAdd, Editors, ahk_exe bash.exe
+GroupAdd, Editors, ahk_exe atom.exe
 
 RWin::AppsKey ; Open the 'context menu' when right windows key is pressed
 
@@ -24,6 +30,8 @@ vkB7::
 	MouseClick, left, 22, 900
 Return
 
+#IfWinNotActive, ahk_group Editors ; for all windows not in group Editors
+
 ; Allows the dash button to function normally, but sends an em-dash instead when
 ; the key is double tapped quicker than 250ms
 ~-:: ;  '~' serves to send the original keys functionality through
@@ -36,6 +44,8 @@ Send {Backspace} ;  Send two backspaces to delete the two dashes you just typed
 Send {Backspace}
 Send {ASC 0151} ;  Send the alt code for an em-dash
 Return
+
+#IfWinActive
 
 ^1::
 	CoordMode, Mouse,
