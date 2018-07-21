@@ -10,6 +10,7 @@ SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 GroupAdd, Editors, ahk_exe sublime_text.exe
 GroupAdd, Editors, ahk_exe bash.exe
 GroupAdd, Editors, ahk_exe atom.exe
+GroupAdd, Editors, ahk_exe Hyper.exe
 
 RWin::AppsKey ; Open the 'context menu' when right windows key is pressed
 
@@ -18,6 +19,7 @@ NumpadMult::Media_Play_Pause ;  Turns the numpad mult key into a pause button
 NumpadSub::Media_Next ; Turns the numpad subtraction key into next track button
 
 CapsLock::Esc ; Remap CapsLock to Esc for vim
+F9::CapsLock ; Remap F9 so I can turn off CapsLock when it glitches and turns on
 
 ; Sends PC to sleep when I press the calculator button
 vkB7::
@@ -30,7 +32,6 @@ vkB7::
 Return
 
 #IfWinNotActive, ahk_group Editors ; for all windows not in group Editors
-
 ; Allows the dash button to function normally, but sends an em-dash instead when
 ; the key is double tapped quicker than 250ms
 ~-:: ;  '~' serves to send the original keys functionality through
@@ -41,42 +42,15 @@ Return
 	Send {Backspace}
 	Send {ASC 0151} ;  Send the alt code for an em-dash
 Return
-
 #IfWinActive
 
-^1::
-	CoordMode, Mouse,
-	Send, {PgUp 10}
-	Sleep, 400
-	MouseClick, left, 1560, 295
-	Sleep, 100
-	MouseClick, left, 1360, 440
-	Sleep, 100
-	MouseClick, left, 1360, 440
-	Send, ^a
-	Sleep, 100
-	Send, ^c
-	Sleep, 100
-	MouseClick, left, 1514, 302
-	Sleep, 50
-	MouseClick, left, 1847, 423
-Return
 
-^2::
-	Send, ^{Right}
-	Send, ^{Right}
-	Send, +{End}
-	Send, +{Down}
-	Send, +{End}
-	Send, ^v
-Return
-
-; Open various folders 
-^Del::run, %comspec% /c start "" "D:\Main\"
-^End::run, %comspec% /c start "" "\Users\Daniel-SSD\Google Drive\School"
+; Open various folders
+^Del::run, %comspec% /c start "" "\Users\Daniel-SSD\Software"
+; ^End::run, %comspec% /c start "" "\Users\Daniel-SSD\Google Drive\School"
 ^PgDn::run, %comspec% /c start "" "\Users\Daniel-SSD\Google Drive\Business"
 
-^Ins::Send officialdanielhunter@gmail.com
+::odh::officialdanielhunter@gmail.com
 
 ; source and context: http://superuser.com/a/636973/124606
 #IfWinActive ahk_class CabinetWClass ; File Explorer
@@ -85,4 +59,3 @@ Return
     ^Backspace::
     Send ^+{Left}{Backspace}
 #IfWinActive
-
